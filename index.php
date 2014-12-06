@@ -1,32 +1,71 @@
-<?php
-  $connection = new mysqli('localhost', 'root', 'pass', 'info');
-  if(!$connection) {
-    echo "Can't connect";
-  } else {
-    echo "Should be connected";
-    $data = $connection->query("SELECT * FROM accounts;");
-    while($row = $data->fetch_assoc()) {
-      print_r($row);
-    }
-  }
-?>
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
   <head>
-    <script src="http://www.webglearth.com/v2/api.js"></script>
-    <script>
-      function initialize() {
-        var earth = new WE.map('earth_div');
-        WE.tileLayer('map/{z}/{x}/{y}.png').addTo(earth);
-				var options = { bounds: [[35.98245136, -112.26379395],[36.13343831, -112.10998535]], 
-								        minZoom: 0,
-								        maxZoom: 4 };
-				WE.tileLayer('http://tileserver.maptiler.com/grandcanyon/{z}/{x}/{y}.png', options).addTo(earth);
+    <title>Complex styled maps</title>
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
       }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script>
+
+var map;
+var chicago = new google.maps.LatLng(41.850033, -87.650052);
+
+function initialize() {
+
+  var roadAtlasStyles = [
+ 	 {
+      featureType: 'all',
+      elementType: 'labels',
+      stylers: [
+        { visibility: 'off'}
+      ]
+    },{
+      featureType: 'all',
+      elementType: 'geometry',
+      stylers: [
+        { color: '#FFFF00' }
+      ]
+    },{
+      featureType: 'water',
+      elementType: 'geometry',
+      stylers: [
+        { color: '#000050' }
+      ]
+    }
+  ];
+
+  var mapOptions = {
+    zoom: 12,
+    center: chicago,
+    mapTypeControlOptions: {
+      mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'usroadatlas']
+    }
+  };
+
+  map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
+
+  var styledMapOptions = {
+    name: 'US Road Atlas'
+  };
+
+  var usRoadMapType = new google.maps.StyledMapType(
+      roadAtlasStyles, styledMapOptions);
+
+  map.mapTypes.set('usroadatlas', usRoadMapType);
+  map.setMapTypeId('usroadatlas');
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
     </script>
   </head>
-  <body onload="initialize()">
-    <div id="earth_div" style="width:600px;height:400px;"></div>
+  <body>
+    <div id="map-canvas"></div>
   </body>
-	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 </html>

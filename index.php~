@@ -15,18 +15,18 @@
   <head>
     <script src="http://www.webglearth.com/v2/api.js"></script>
     <script>
+			var earth;
       function initialize() {
-        var earth = new WE.map('earth_div');
-        WE.tileLayer('map/{z}/{x}/{y}.png').addTo(earth);
-				var options = { bounds: [[35.98245136, -112.26379395],[36.13343831, -112.10998535]], 
-								        minZoom: 10,
-								        maxZoom: 16 };
-				WE.tileLayer('http://tileserver.maptiler.com/grandcanyon/{z}/{x}/{y}.png', options).addTo(earth);
+        earth = new WE.map('earth_div', maxZoom = 4, sky = true);
+        WE.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(earth);
+				var marker = WE.marker([51.5, -0.1]).addTo(earth)
+				/*earth.maxZoom = 1;
+				earth.sky = true;*/
       }
     </script>
   </head>
   <body onload="initialize()">
-    <div id="earth_div" style="width:600px;height:400px;"></div>
+    <div id="earth_div" style="width:600px;height:400px;"></2iv>
   </body>
 	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 </html>
