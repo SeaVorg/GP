@@ -17,10 +17,10 @@
     <script>
       function initialize() {
         var earth = new WE.map('earth_div');
-        WE.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(earth);
+        WE.tileLayer('map/{z}/{x}/{y}.png').addTo(earth);
 				var options = { bounds: [[35.98245136, -112.26379395],[36.13343831, -112.10998535]], 
-								        minZoom: 10,
-								        maxZoom: 16 };
+								        minZoom: 0,
+								        maxZoom: 4 };
 				WE.tileLayer('http://tileserver.maptiler.com/grandcanyon/{z}/{x}/{y}.png', options).addTo(earth);
       }
     </script>
