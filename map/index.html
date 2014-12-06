@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <head>
+    <title>MapTiler layer in Google Earth</title>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script>
+// PUT IN HERE THE ABSOLUTE URL ADDRESS FOR THE 'doc.kml' FILE ON YOUR WEB HOSTING, AN EXAMPLE:
+// var url = 'https://googledrive.com/host/0BwUe1kqIRJWSdVB0UGZBTkF2U00/doc.kml'
+var url = basePath() + 'doc.kml';
+if (!/http/.test(url)) alert('Please upload this directory to a web hosting!');
+
+//load google earth API
+google.load("earth", "1");
+var ge = null;
+function init() {
+  google.earth.createInstance("map", initCallback, failureCallback);
+}
+function initCallback(object) {
+  ge = object;
+  ge.getWindow().setVisibility(true);
+  var link = ge.createLink('');
+  link.setHref(url);
+  var networkLink = ge.createNetworkLink('');
+  networkLink.set(link, true, true); // Sets the link, refreshVisibility, and flyToView
+  ge.getFeatures().appendChild(networkLink);
+}
+function failureCallback(object) {
+  //Callback can contain any code to deal with a failure to create the plugin instance.
+}
+
+//Returns base url to your app.
+function basePath() {
+  var uri = window.location.href;
+  return uri.substr(0, uri.lastIndexOf('/') + 1);
+}
+    </script>
+    <style>
+      html, body, #map { width:100%; height:100%; margin:0; padding:0; }
+      #credit { position:absolute; bottom:0; left:0;}
+    </style>
+  </head>
+  <body onload='init()'>
+    <center>
+      <div id="credit">Google Earth KML SuperOverlay generated with <a href="http://www.maptiler.com/">MapTiler</a></div>
+      <div id='map'></div>
+    </center>
+  </body>
+</html>
