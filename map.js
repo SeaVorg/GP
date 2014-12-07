@@ -1,4 +1,6 @@
 var map;
+var stations = [];
+var currents = [];
 var chicago = new google.maps.LatLng(41.850033, -87.650052);
 
 function createMap() {
@@ -50,23 +52,24 @@ function createCurrents () {
     type: 'GET',
     url: 'flows.json',
     success: function (data) {
-      $.each(data.currents, function(key, val) {
+      currents = []
       var lineSymbol = {
         path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
       };
-      var flightPath = new google.maps.Polyline({
-        path: val.points,
-        strokeColor: val.color,
-        strokeOpacity: 1.0,
-        strokeWeight: 2,
-        icons: [{
-          icon: lineSymbol,
-          offset: '10%',
-          repeat: '30%'
-        }]
-      });
-
-      flightPath.setMap(map);
+      $.each(data.currents, function(key, val) {
+        var current = new google.maps.Polyline({
+          path: val.points,
+          strokeColor: val.color,
+          strokeOpacity: 1.0,
+          strokeWeight: 2,
+          icons: [{
+            icon: lineSymbol,
+            offset: '10%',
+            repeat: '30%'
+          }]
+        });
+        current.setMap(map);
+        currents.push(current);
       });
     }
   });
@@ -94,12 +97,11 @@ function stationData(id) {
 function addStations() {
   $.ajax({
     type: 'GET',
-    url: "http://www.corsproxy.com/www.ndbc.noaa.gov/ndbcmapstations.json",
-    //url: "data.json",
+    //url: "http://www.corsproxy.com/www.ndbc.noaa.gov/ndbcmapstations.json",
+    url: "data.json",
     success: function( data ) {
-      var stations = data.station;
       //console.log(stations);
-      $.each(stations, function( key, val ) {
+      $.each(data.station, function( key, val ) {
         
         if(val.data == 'y') {
           var marker = newMarker({lng: parseInt(val.lon), lat: parseInt(val.lat)});
@@ -107,16 +109,39 @@ function addStations() {
             var id = val.id;
             stationData(id);
           });
+          stations.push(marker);
+          /*marker.setVisible(false);
+          stations[stations.length - 1].setVisible(true);*/
         }
       });
     }
-  });
+  })
+}
+
+function initControlls() {
+  $("input.layerControll").change(function() {
+    checked = this.checked;
+    
+    if(this.name == "stations") {
+      $.each(stations, function(key, val) {
+        this.setVisible(checked);
+      });
+    } else {
+      $.each(currents, function(key, val) {
+        this.setVisible(checked);
+      });
+    }
+  })
+}
+function setMap() {
+
 }
 
 function initialize() {
   createMap();
-	addStations();
   createCurrents();
+  addStations();
+  initControlls();
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
