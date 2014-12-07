@@ -17,6 +17,13 @@ function buttonListeners() {
   });
 
   $("#currentsToggle").click(function() {
+    if(displayCurrents) {
+      $("#currentsToggle").removeClass("selected");
+      $("#currentsToggle").addClass("unselected");
+    } else {
+      $("#currentsToggle").addClass("selected");
+      $("#currentsToggle").removeClass("unselected");
+    }
     displayCurrents = !displayCurrents;
       $.each(currents, function(key, val) {
         this.setVisible(displayCurrents);
