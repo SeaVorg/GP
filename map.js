@@ -150,7 +150,8 @@ function newMarker(position) {
   return new google.maps.Marker({
     position: position,
     icon: {
-    	url: "images/marker.png",
-    }, map: map
+    	url: "images/marker.gif",
+    }, optimized: false,
+	map: map
   });
 }
