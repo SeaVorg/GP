@@ -1,7 +1,9 @@
 var map;
+var tsunamis = [];
 var stations = [];
 var currents = [];
 var chicago = new google.maps.LatLng(41.850033, -87.650052);
+var TSUNAMI_STUFF = 20;
 
 function createMap() {
 	var roadAtlasStyles = [
@@ -15,13 +17,16 @@ function createMap() {
       featureType: 'all',
       elementType: 'geometry',
       stylers: [
-        { color: '#000000' }
+        { //color: '#000000' 
+		}
       ]
     },{
       featureType: 'water',
       elementType: 'geometry',
       stylers: [
-        { color: '#FFFFFF' }
+        {  color: '#FFFFFF'
+			//color: '#000000'
+		}
       ]
     }
   ];
@@ -31,6 +36,7 @@ function createMap() {
     center: chicago,
     mapTypeControlOptions: {
       mapTypeIds: []
+	  //mapTypeIds: ['shit']
     }
   };
 
@@ -74,11 +80,14 @@ function createCurrents () {
     }
   });
 }
-function stationData(id) {
+function stationData(id, stuff) {
   $.ajax({
     type: 'GET',
     url: 'http://www.corsproxy.com/www.ndbc.noaa.gov/get_observation_as_xml.php?station=' + id,
     success: function( data ) {
+	
+	  var result;
+	  
       var xml;
       if (window.ActiveXObject){
         xml = data.xml;
@@ -94,15 +103,19 @@ function stationData(id) {
 	  
 	  if($xml.find("waveht").length>0)
 	  {
-	  console.log(parseInt($xml.find("waveht").text()));
-	  return parseInt($xml.find("waveht").text());
+	  //console.log(parseInt($xml.find("waveht").text()));
+	  result = parseInt($xml.find("waveht").text());
 	  }
 	  else{
-	  console.log(" fuck no shit" );
-	  return 0;
+	  //console.log(" fuck no shit" );
+	  result = 0;
 	  }
 	  //return 0;
       //alert(data);
+	  
+	  if(result > TSUNAMI_STUFF  ) tsunamis.push(stuff);
+	  
+	  return result;
     }
   });
 }
@@ -130,19 +143,33 @@ function addStations() {
 		  //}
 		  //else{
 		  var marker = newMarker({lng: parseInt(val.lon), lat: parseInt(val.lat)});
-		  //}
-		  
+			/*if(stationData(id)>10){
+		  console.log("TSUNAMI !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		  marker.setIcon("images/marker.gif");
+		  }
+		  else console.log(stationData(id));*/
+			stationData(id, marker);
           google.maps.event.addListener(marker, 'click', function() {
             var id = val.id;
-            stationData(id);
+			infowindow.open(map,marker);
+            stationData(id, marker);
           });
           stations.push(marker);
+		  //station_ids.push(val.id);
           /*marker.setVisible(false);
           stations[stations.length - 1].setVisible(true);*/
         }
       });
     }
   })
+}
+
+function UpdateStations()
+{
+	$.each(tsunamis,function(key,val) {
+	this.setIcon("images/marker.gif");
+	} 
+	)
 }
 
 function initControlls() {
@@ -169,6 +196,7 @@ function initialize() {
   createCurrents();
   addStations();
   initControlls();
+  UpdateStations();
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
@@ -192,3 +220,19 @@ function newMarker(position) {
 	map: map
   });
 }
+
+ var contentString = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
+      '<div id="bodyContent">'+
+      '<p><b>Lorem ipsum</b> dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>'+
+      '<p>Attribution: Uluru, <a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+      'link</a> '+
+      '(last visited June 22, 2009).</p>'+
+      '</div>'+
+      '</div>';
+
+  var infowindow = new google.maps.InfoWindow({
+      content: contentString
+  });
