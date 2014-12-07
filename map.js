@@ -50,7 +50,7 @@ function initialize() {
   addStations();
   
   UpdateStations();
-  buttenbutt();
+  buttonListeners();
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
