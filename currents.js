@@ -14,11 +14,19 @@ function createCurrents () {
         path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
       };
       $.each(data.currents, function(key, val) {
+        var color = "";
+        if(val.type == "warm") {
+          color = "#FF3333";
+        } else {
+          color = "#3333FF";
+        } 
+
         var current = new google.maps.Polyline({
           path: val.points,
-          strokeColor: val.color,
+          strokeColor: color,
           strokeOpacity: 0.8,
           strokeWeight: 2,
+          editable: true,
           icons: [{
             icon: lineSymbol,
             offset: '0px',
