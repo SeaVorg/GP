@@ -26,7 +26,7 @@ function stationData(id, stuff) {
     }
     
     if(result > TSUNAMI_STUFF  ) tsunamis.push(stuff);
-    
+    console.log(result);
     return result;
     }
   });
