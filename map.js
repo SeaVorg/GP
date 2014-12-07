@@ -47,7 +47,9 @@ function createMap() {
 function initialize() {
   createMap();
   createCurrents();
+  Init_SPIDER();
   addStations();
+  
   
   UpdateStations();
   buttonListeners();
