@@ -126,7 +126,7 @@ function newMarker(position) {
     position: position,
     icon: {
     	url: "images/marker.gif",
-    }, optimised: false,
+    }, optimized: false,
 	map: map
   });
 }
