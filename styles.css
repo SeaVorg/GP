@@ -3,9 +3,8 @@
         margin: 0px;
         padding: 0px;
       }
-
 #layerControll {
-	width: 400px;
+	width: 260px;
 	background-color:rgba(255,0,0,0);
 	font-size: 25px;
 	border: 2px solid black;
