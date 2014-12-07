@@ -17,7 +17,7 @@ function createCurrents () {
         var current = new google.maps.Polyline({
           path: val.points,
           strokeColor: val.color,
-          strokeOpacity: 1.0,
+          strokeOpacity: 0.8,
           strokeWeight: 2,
           icons: [{
             icon: lineSymbol,
