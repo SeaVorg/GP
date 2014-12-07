@@ -87,9 +87,13 @@ function stationData(id) {
       }
       var xmlData = $.parseXML(xml);
       var $xml = $(xmlData);
-      console.log(xml);
-      console.log($xml.find("windspeed").text());
-      console.log($xml.find("windspeed").attr("uom"));
+      //console.log(xml);
+	  console.log($xml.find("waveht"));
+      console.log($xml.find("waveht").text());
+      console.log($xml.find("waveht").attr("uom"));
+	  
+	  if($xml.find("waveht").length>0) return $xml.find("waveht").text();
+	  else return 0;
       //alert(data);
     }
   });
@@ -104,7 +108,19 @@ function addStations() {
       $.each(data.station, function( key, val ) {
         
         if(val.data == 'y') {
-          var marker = newMarker({lng: parseInt(val.lon), lat: parseInt(val.lat)});
+		  var id = val.id;
+		  var waveht = stationData(id);
+		  console.log("duuude");
+		  console.log(waveht);
+		  var marker;
+		  if(waveht<10){
+           marker = newMarker({lng: parseInt(val.lon), lat: parseInt(val.lat)});
+		  }
+		  if(waveht>=10){
+		  console.log("TSUNAMI !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		  marker = newMarkerTsunami({lng: parseInt(val.lon), lat: parseInt(val.lat)});
+		  }
+		  
           google.maps.event.addListener(marker, 'click', function() {
             var id = val.id;
             stationData(id);
@@ -146,11 +162,21 @@ function initialize() {
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
-function newMarker(position) {
+function newMarkerTsunami(position) {
   return new google.maps.Marker({
     position: position,
     icon: {
     	url: "images/marker.gif",
+    }, optimized: false,
+	map: map
+  });
+}
+
+function newMarker(position) {
+  return new google.maps.Marker({
+    position: position,
+    icon: {
+    	url: "images/marker.png",
     }, optimized: false,
 	map: map
   });
