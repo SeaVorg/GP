@@ -17,14 +17,16 @@ function createMap() {
       featureType: 'all',
       elementType: 'geometry',
       stylers: [
-        { //color: '#000000' 
+        { 
+		//color: '#000000' 
+		hue: '#6ADAFF'
 		}
       ]
     },{
       featureType: 'water',
       elementType: 'geometry',
       stylers: [
-        {  color: '#FFFFFF'
+        {  color: '#6ADAFF'
 			//color: '#000000'
 		}
       ]
