@@ -47,10 +47,10 @@ function createMap() {
 function initialize() {
   createMap();
   createCurrents();
-  //addStations();
+  addStations();
   
-  //pdateStations();
-  //buttenbutt();
+  UpdateStations();
+  buttenbutt();
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
