@@ -21,6 +21,9 @@ function stationData(id, stuff) {
       }
       var xmlData = $.parseXML(xml);
       var $xml = $(xmlData);
+	  
+	  console.log($xml);
+	  stuff.exml=$xml;
     
     if($xml.find("waveht").length>0) {
       result = parseInt($xml.find("waveht").text());
@@ -115,6 +118,7 @@ function Init_SPIDER()
   
 	  oms.addListener('click', function(marker) {
         //infowindow.setContent(marker.desc);
+		infowindow.setContent(marker.exml);
 		console.log(marker.asd_log);
         infowindow.open(map, marker);
       });
@@ -128,7 +132,7 @@ function Init_SPIDER()
       oms.addListener('unspiderfy', function(markers) {
         for(var i = 0; i < markers.length; i ++) {
           //markers[i].setIcon(iconWithColor(usualColor));
-          markers[i].setShadow(shadow);
+          //markers[i].setShadow(shadow);
         }
       });
 }
