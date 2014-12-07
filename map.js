@@ -88,12 +88,20 @@ function stationData(id) {
       var xmlData = $.parseXML(xml);
       var $xml = $(xmlData);
       //console.log(xml);
-	  console.log($xml.find("waveht"));
-      console.log($xml.find("waveht").text());
-      console.log($xml.find("waveht").attr("uom"));
+	  //console.log($xml.find("waveht"));
+      //console.log($xml.find("waveht").text());
+      //console.log($xml.find("waveht").attr("uom"));
 	  
-	  if($xml.find("waveht").length>0) return $xml.find("waveht").text();
-	  else return 0;
+	  if($xml.find("waveht").length>0)
+	  {
+	  console.log(parseInt($xml.find("waveht").text()));
+	  return parseInt($xml.find("waveht").text());
+	  }
+	  else{
+	  console.log(" fuck no shit" );
+	  return 0;
+	  }
+	  //return 0;
       //alert(data);
     }
   });
@@ -109,17 +117,20 @@ function addStations() {
         
         if(val.data == 'y') {
 		  var id = val.id;
-		  var waveht = stationData(id);
-		  console.log("duuude");
-		  console.log(waveht);
-		  var marker;
-		  if(waveht<10){
-           marker = newMarker({lng: parseInt(val.lon), lat: parseInt(val.lat)});
-		  }
-		  if(waveht>=10){
-		  console.log("TSUNAMI !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		  marker = newMarkerTsunami({lng: parseInt(val.lon), lat: parseInt(val.lat)});
-		  }
+		  //var waveht = stationData(id);
+		  
+		  //if(waveht>0) console.log("asdadasdasdadasdasdaghsdadasasdadasdasdajd");
+		  //console.log("duuude" + id);
+		  //console.log(id);
+		  //console.log(stationData(id));
+		  //var marker;
+		  //if(stationData(id)>10){
+		  //console.log("TSUNAMI !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+           //var marker = newMarkerTsunami({lng: parseInt(val.lon), lat: parseInt(val.lat)});
+		  //}
+		  //else{
+		  var marker = newMarker({lng: parseInt(val.lon), lat: parseInt(val.lat)});
+		  //}
 		  
           google.maps.event.addListener(marker, 'click', function() {
             var id = val.id;
