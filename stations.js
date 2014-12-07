@@ -1,6 +1,9 @@
 var tsunamis = [];
 var stations = [];
 var TSUNAMI_STUFF = 20;
+var map;
+var oms;
+var shadow;
 
 function stationData(id, stuff) {
   $.ajax({
@@ -43,12 +46,11 @@ function addStations() {
         if(val.data == 'y') {
       var id = val.id;
       var marker = newMarker({lng: parseInt(val.lon), lat: parseInt(val.lat)});
+	  marker.asd_id=id;
       stationData(id, marker);
-          google.maps.event.addListener(marker, 'click', function() {
-            var id = val.id;
-      infowindow.open(map,marker);
-            stationData(id, marker);
-          });
+	  
+	  oms.addMarker(marker);
+          
           stations.push(marker);
         }
       });
@@ -96,3 +98,37 @@ function newMarker(position) {
       content: contentString
   });
   
+function Init_SPIDER()
+{
+  
+   oms = new OverlappingMarkerSpiderfier(map,
+        {markersWontMove: true, markersWontHide: true});
+  
+   shadow = new google.maps.MarkerImage(
+        'https://www.google.com/intl/en_ALL/mapfiles/shadow50.png',
+        new google.maps.Size(37, 34),  // size   - for sprite clipping
+        new google.maps.Point(0, 0),   // origin - ditto
+        new google.maps.Point(10, 34)  // anchor - where to meet map location
+      );
+
+  
+  
+	  oms.addListener('click', function(marker) {
+        //infowindow.setContent(marker.desc);
+		console.log(marker.asd_log);
+        infowindow.open(map, marker);
+      });
+      oms.addListener('spiderfy', function(markers) {
+        for(var i = 0; i < markers.length; i ++) {
+          //markers[i].setIcon(iconWithColor(spiderfiedColor));
+          markers[i].setShadow(null);
+        } 
+        infowindow.close();
+      });
+      oms.addListener('unspiderfy', function(markers) {
+        for(var i = 0; i < markers.length; i ++) {
+          //markers[i].setIcon(iconWithColor(usualColor));
+          markers[i].setShadow(shadow);
+        }
+      });
+}
