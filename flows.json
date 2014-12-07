@@ -1,7 +1,47 @@
 {
-	"flows" : [{
+	"currents" : [{
 		"name" : "Gulfstream",
-		"color" : "#FF3333"
-	}	
-	]
+		"color" : "#FF3333",
+		"points" : [{
+			"lat" : -8,
+			"lng" : 3
+		},{
+			"lat" : -3,
+			"lng" : -26
+		}, {
+			"lat" : 23,
+			"lng" : -73
+		}, {
+			"lat": 28,
+			"lng": -75
+		}, {
+			"lat": 38,
+			"lng": -65
+		}, {
+			"lat" : 60,
+			"lng" : -10
+		}]
+	}, {
+		"name" : "North Pacific Gyre",
+		"color" : "#3333FF",
+		"points" : [{
+			"lat" : 46,
+			"lng" : -176
+		}, {
+			"lat" : 55,
+			"lng" : -150
+		}, {
+			"lat" : 53,
+			"lng" : -139
+		}, {
+			"lat" : 16,
+			"lng" : -115
+		}, {
+			"lat" : 7,
+			"lng" : -119
+		}, {
+			"lat" : 3 ,
+			"lng" : -175
+		}]
+	}]
 }

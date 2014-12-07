@@ -45,6 +45,32 @@ function createMap() {
   map.mapTypes.set('Weather Map', usRoadMapType);
   map.setMapTypeId('Weather Map');
 }
+function createCurrents () {
+  $.ajax ({
+    type: 'GET',
+    url: 'flows.json',
+    success: function (data) {
+      $.each(data.currents, function(key, val) {
+      var lineSymbol = {
+        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
+      };
+      var flightPath = new google.maps.Polyline({
+        path: val.points,
+        strokeColor: val.color,
+        strokeOpacity: 1.0,
+        strokeWeight: 2,
+        icons: [{
+          icon: lineSymbol,
+          offset: '10%',
+          repeat: '30%'
+        }]
+      });
+
+      flightPath.setMap(map);
+      });
+    }
+  });
+}
 function stationData(id) {
   $.ajax({
     type: 'GET',
@@ -65,16 +91,14 @@ function stationData(id) {
     }
   });
 }
-
-function initialize() {
-createMap();
-	$.ajax({
+function addStations() {
+  $.ajax({
     type: 'GET',
     url: "http://www.corsproxy.com/www.ndbc.noaa.gov/ndbcmapstations.json",
     //url: "data.json",
     success: function( data ) {
       var stations = data.station;
-      console.log(stations);
+      //console.log(stations);
       $.each(stations, function( key, val ) {
         
         if(val.data == 'y') {
@@ -87,6 +111,12 @@ createMap();
       });
     }
   });
+}
+
+function initialize() {
+  createMap();
+	addStations();
+  createCurrents();
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
