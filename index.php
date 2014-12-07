@@ -28,13 +28,13 @@ function createMap() {
       featureType: 'all',
       elementType: 'geometry',
       stylers: [
-        { color: '#FFFF00' }
+        { color: '#000000' }
       ]
     },{
       featureType: 'water',
       elementType: 'geometry',
       stylers: [
-        { color: '#000050' }
+        { color: '#FFFFFF' }
       ]
     }
   ];
@@ -64,8 +64,8 @@ function initialize() {
 createMap();
 	$.ajax({
     type: 'GET',
-    url: "http://www.ndbc.noaa.gov/ndbcmapstations.json",
-    xhrFields: {
+    url: "data.json",
+    /*xhrFields: {
     // The 'xhrFields' property sets additional fields on the XMLHttpRequest.
     // This can be used to set the 'withCredentials' property.
     // Set the value to 'true' if you'd like to pass cookies to the server.
@@ -74,15 +74,17 @@ createMap();
       withCredentials: false
     }, headers: {
       Access-Control-Allow-Headers: x-requested-with
-    },success: function( data ) {
-      var stations = data.stations;
-      $.each( stations, function( val ) {
-        addMarker(val);
+    },*/success: function( data ) {
+      var stations = data.station;
+      console.log(stations);
+      $.each(stations, function( key, val ) {
+        
+        if(val.data == 'y') {
+          addMarker({lng: parseInt(val.lon), lat: parseInt(val.lat)});
+        }
       });
     }
   });
-
-  addMarker({lng: 0, lat: 0});
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
