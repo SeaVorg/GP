@@ -1,4 +1,5 @@
  html, body, #map-canvas {
+<<<<<<< HEAD
 	height: 100%;
 	margin: 0px;
 	padding: 0px;
@@ -31,4 +32,18 @@
 	font-size: 20px; 
 	padding-left: 4px; 
 	padding-right: 4px; 
+=======
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+      }
+#layerControll {
+	width: 260px;
+	background-color:rgba(255,0,0,0);
+	font-size: 25px;
+	border: 2px solid black;
+	padding-left: 5px;
+	font-family: Century Gothic;
+	@font-face { font-family: Century Gothic; src: url('4365.ttf');
+>>>>>>> 8882c241b2964d27d0a9b7c989d3c7ef26baae51
 }
