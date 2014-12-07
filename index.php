@@ -40,10 +40,10 @@ function createMap() {
   ];
 
   var mapOptions = {
-    zoom: 12,
+    zoom: 3,
     center: chicago,
     mapTypeControlOptions: {
-      mapTypeIds: ['Weather Map']
+      mapTypeIds: []
     }
   };
 
@@ -60,27 +60,44 @@ function createMap() {
   map.mapTypes.set('Weather Map', usRoadMapType);
   map.setMapTypeId('Weather Map');
 }
+function stationData(id) {
+  $.ajax({
+    type: 'GET',
+    url: 'http://www.corsproxy.com/www.ndbc.noaa.gov/get_observation_as_xml.php?station=' + id,
+    success: function( data ) {
+      var xml;
+      if (window.ActiveXObject){
+        xml = data.xml;
+      } else {
+        xml = (new XMLSerializer()).serializeToString(data);
+      }
+      var xmlData = $.parseXML(xml);
+      var $xml = $(xmlData);
+      console.log(xml);
+      console.log($xml.find("windspeed").text());
+      console.log($xml.find("windspeed").attr("uom"));
+      //alert(data);
+    }
+  });
+}
+
 function initialize() {
 createMap();
 	$.ajax({
     type: 'GET',
+    //url: "http://www.corsproxy.com/www.ndbc.noaa.gov/ndbcmapstations.json",
     url: "data.json",
-    /*xhrFields: {
-    // The 'xhrFields' property sets additional fields on the XMLHttpRequest.
-    // This can be used to set the 'withCredentials' property.
-    // Set the value to 'true' if you'd like to pass cookies to the server.
-     // If this is enabled, your server must respond with the header
-    // 'Access-Control-Allow-Credentials: true'.
-      withCredentials: false
-    }, headers: {
-      Access-Control-Allow-Headers: x-requested-with
-    },*/success: function( data ) {
+    success: function( data ) {
       var stations = data.station;
       console.log(stations);
       $.each(stations, function( key, val ) {
         
         if(val.data == 'y') {
-          addMarker({lng: parseInt(val.lon), lat: parseInt(val.lat)});
+          var marker = newMarker({lng: parseInt(val.lon), lat: parseInt(val.lat)});
+          google.maps.event.addListener(marker, 'click', function() {
+            var id = val.id;
+            stationData(id);
+          });
         }
       });
     }
@@ -89,8 +106,8 @@ createMap();
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
-function addMarker(position) {
-  var marker = new google.maps.Marker({
+function newMarker(position) {
+  return new google.maps.Marker({
     position: position,
     icon: {
     	url: "images/marker.png",
