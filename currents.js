@@ -1,4 +1,9 @@
 var currents = [];
+var REPEAT = 75;
+var STEP = 1;
+var offset = 0;
+var INTERVAL = 25;
+
 function createCurrents () {
   $.ajax ({
     type: 'GET',
@@ -16,8 +21,8 @@ function createCurrents () {
           strokeWeight: 2,
           icons: [{
             icon: lineSymbol,
-            offset: '10%',
-            repeat: '30%'
+            offset: '0px',
+            repeat: REPEAT + 'px'
           }]
         });
         current.setMap(map);
@@ -25,4 +30,19 @@ function createCurrents () {
       });
     }
   });
+  currentsAnimate();
+}
+
+function currentsAnimate () {
+  offset += STEP;
+  if(offset >= REPEAT) {
+    offset = 0;
+  }
+  $.each(currents, function(key, val) {
+    var icons = this.get('icons');
+    icons[0].offset = offset + "px";
+    this.set('icons', icons);
+    
+  });
+  setTimeout(currentsAnimate, INTERVAL);
 }

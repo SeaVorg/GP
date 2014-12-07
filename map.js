@@ -1,5 +1,4 @@
 var map;
-var currents = [];
 var chicago = new google.maps.LatLng(41.850033, -87.650052);
 
 function createMap() {
@@ -44,41 +43,14 @@ function createMap() {
   map.mapTypes.set('Weather Map', usRoadMapType);
   map.setMapTypeId('Weather Map');
 }
-function createCurrents () {
-  $.ajax ({
-    type: 'GET',
-    url: 'flows.json',
-    success: function (data) {
-      currents = []
-      var lineSymbol = {
-        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
-      };
-      $.each(data.currents, function(key, val) {
-        var current = new google.maps.Polyline({
-          path: val.points,
-          strokeColor: val.color,
-          strokeOpacity: 1.0,
-          strokeWeight: 2,
-          icons: [{
-            icon: lineSymbol,
-            offset: '10%',
-            repeat: '30%'
-          }]
-        });
-        current.setMap(map);
-        currents.push(current);
-      });
-    }
-  });
-}
 
 function initialize() {
   createMap();
   createCurrents();
-  addStations();
+  //addStations();
   
-  UpdateStations();
-  buttenbutt();
+  //pdateStations();
+  //buttenbutt();
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
