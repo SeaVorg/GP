@@ -47,9 +47,9 @@ function createMap() {
 function initialize() {
   createMap();
   createCurrents();
-  addStations();
+  //addStations();
   
-  UpdateStations();
+  //UpdateStations();
   buttonListeners();
 }
 
