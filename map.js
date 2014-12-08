@@ -42,6 +42,7 @@ function createMap() {
 
   map.mapTypes.set('Weather Map', usRoadMapType);
   map.setMapTypeId('Weather Map');
+  
 }
 
 function initialize() {
