@@ -48,7 +48,7 @@ function addStations() {
         
         if(val.data == 'y') {
       var id = val.id;
-      var marker = newMarker({lng: parseInt(val.lon), lat: parseInt(val.lat)});
+      var marker = newMarker({lng: parseFloat(val.lon), lat: parseFloat(val.lat)});
 	  marker.asd_id=id;
       stationData(id, marker);
 	  
