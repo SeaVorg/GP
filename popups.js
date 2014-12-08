@@ -140,8 +140,8 @@ function populateInfoWindow(stn,stnpos,lat,lon,owner,marker) {
                if (data['tide'] != null) { body += '<strong>Tide:<\/strong> '+data['tide']+'<br />'; }
                html = title+'<div style="max-width:300px;overflow:auto;">'+body+'<\/div>';
             } else {
-               html = '<strong>Station '+stn.toUpperCase()+'<br />'+owner+'<br />Location:<\/strong> '+formatLat(lat)+' '+formatLon(lon)+'<br />There are no recent (&lt; 8 hours) meteorological data for this station.<br .>Click <a href="/station_page.php?station='+stn+'" target="_blank">here<\/a> <img src="/images/new_window.png" width="16" height="16" alt="Opens in new window" title="Opens in new window" style="vertical-align:text-top" \/> for other data from this station.';
-				//console.log("fine in 2 1");
+               html = '<strong>Station '+stn.toUpperCase()+'<br />'+owner+'<br />Location:<\/strong> '+formatLat(lat)+' '+formatLon(lon)+'<br />There are no recent (&lt; 8 hours) meteorological data for this station.<br .>';
+			   //console.log("fine in 2 1");
 			}
           } else {
              html = "Sorry!  Your browser does not support this application.";
