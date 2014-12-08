@@ -11,7 +11,7 @@ function buttonListeners() {
       $("#stationsToggle").removeClass("unselected");
     }
     displayStations = !displayStations;
-      $.each(stations, function(key, val) {
+      $.each(markers, function(key, val) {
         this.setVisible(displayStations);
       });
   });
