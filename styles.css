@@ -9,6 +9,7 @@
 	position: absolute; 
 	right: 10px; 
 	top: 0px;
+	opacity: 0.6;
 }
 
 .layerToggle div {
@@ -16,15 +17,34 @@
 	border-width: 1px; 
 	cursor: pointer; 
 	text-align: center; 
+
 }
 .selected div {
 	background-color: #ddd;
 	font-weight: bold;
 }
+.selected div:hover {
+	font-weight: bold;
+	background-color: red; 
+	-webkit-transition: background-color 0.3s;
+  -moz-transition: background-color 0.3s;
+  -o-transition: background-color 0.3s;
+  transition: background-color 0.3s;
+
+}
 .unselected div {
 	font-weight: normal;
 	background-color: white;
 }
+.unselected div:hover {
+	font-weight: normal;
+	background-color: green;
+	-webkit-transition: background-color 0.3s;
+  -moz-transition: background-color 0.3s;
+  -o-transition: background-color 0.3s;
+  transition: background-color 0.3s;
+}
+
 /*.selcted div and .unselcted div*/
 .layerToggle div div {
 	font-family: 'Century Gothic'; 
