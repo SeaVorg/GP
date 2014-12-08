@@ -1,3 +1,42 @@
+function formatLon(lon) {
+   if (isNaN(lon)) { return lon; }
+   if (Math.abs(lon) == 180) { lon = 180 } else {
+	   if (lon < 0) { return Math.abs(lon).toString()+'W'; }
+	   if (lon > 0) { return lon.toString()+'E'; }
+   }
+   return lon.toString();
+}
+
+
+function formatLat(lat) {
+   if (isNaN(lat)) { return lat; }
+   if (lat < 0) { return Math.abs(lat).toString()+'S'; }
+   if (lat > 0) { return lat.toString()+'N'; }
+   return lat.toString();
+}
+
+ function deg2dir(deg){
+   if (isNaN(deg)|| deg < 0 || deg > 360) { return null;}
+   dir = new Array('N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW','N');
+   return dir[Math.round(deg/22.5)];
+}
+
+function parseiso8601(isodate) {
+   var p = /^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})UTC$/;
+   var m = isodate.match(p);
+   if (m == null || m.length != 7) { return null; }
+   var d = new Date();
+   d.setUTCFullYear(m[1]);
+   d.setUTCMonth(m[2]-1);
+   d.setUTCDate(m[3]);
+   d.setUTCHours(m[4]);
+   d.setUTCMinutes(m[5]);
+   d.setUTCSeconds(m[6]);
+   d.setUTCMilliseconds(0);
+   return d;
+}
+
+
 function createXmlHttpRequest() {
  try {
    if (typeof ActiveXObject != 'undefined') {
