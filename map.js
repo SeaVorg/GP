@@ -48,10 +48,10 @@ function initialize() {
   createMap();
   createCurrents();
 
-  Init_SPIDER();
-  addStations();
+  //Init_SPIDER();
+  //addStations();
   
-  UpdateStations();
+  //UpdateStations();
   buttonListeners();
 }
 
