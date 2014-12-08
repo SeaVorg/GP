@@ -47,8 +47,8 @@ function populateInfoWindow(stn,stnpos,lat,lon,owner,marker) {
    downloadUrl("http://www.corsproxy.com/www.ndbc.noaa.gov/get_observation_as_xml.php?station="+stn, function(xml, responseCode) {
       var html = null;
       if (responseCode != 200 && responseCode != 304) {
-         html = '<strong>Station '+stn.toUpperCase()+'<br />'+owner+'<br />Location:<\/strong> '+formatLat(lat)+' '+formatLon(lon)+'<br />There are no recent (&lt; 8 hours) meteorological data for this station.<br .>Click <a href="/station_page.php?station='+stn+'" target="_blank">here<\/a> <img src="/images/new_window.png" width="16" height="16" alt="Opens in new window" title="Opens in new window" style="vertical-align:text-top" \/> - <a href="/station_history.php?station='+stn+'" target="_blank">View History<\/a> <img src="/images/new_window.png" width="16" height="16" alt="Opens in new window" title="Opens in new window" style="vertical-align:text-top" \/> for other data from this station.';
-		 console.log(html);
+         html = '<strong>Station '+stn.toUpperCase()+'<br />'+owner+'<br />Location:<\/strong> '+formatLat(lat)+' '+formatLon(lon)+'<br />There are no recent (&lt; 8 hours) meteorological data for this station.<br .>';
+		 //console.log(html);
 	  } 
 	  else {
          if (xml.documentElement) {
@@ -109,7 +109,7 @@ function populateInfoWindow(stn,stnpos,lat,lon,owner,marker) {
                }
             }
 			console.log("yeaah");
-			console.log(html);
+			//console.log(html);
             var now = new Date();
             var cutoff = new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate(),now.getUTCHours(),now.getUTCMinutes(),now.getUTCSeconds())-8*60*60*1000);
             if (data['id'] != null && data['datetime'] != null && data['lat'] != null && data['lon'] != null && data['datetime'] >= cutoff) {
@@ -149,7 +149,7 @@ function populateInfoWindow(stn,stnpos,lat,lon,owner,marker) {
              return;
           }
       }
-	  console.log(html);
+	  //console.log(html);
 	  finish_HIM(html,marker);
 	  return html;
       
