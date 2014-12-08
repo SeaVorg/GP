@@ -26,7 +26,7 @@ function createCurrents () {
           strokeColor: color,
           strokeOpacity: 0.8,
           strokeWeight: 2,
-          editable: true,
+          editable: false,
           icons: [{
             icon: lineSymbol,
             offset: '0px',
