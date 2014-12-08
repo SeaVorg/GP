@@ -3,6 +3,11 @@
 	margin: 0px;
 	padding: 0px;
 }
+br{
+	display: block;
+	margin: 1px 0;
+
+}
 .layerToggle {
 	padding: 5px; 
 	z-index: 0; 
