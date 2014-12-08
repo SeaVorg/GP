@@ -5,7 +5,6 @@ var map;
 var oms;
 var shadow;
 
-var markerCluster;
 
 function stationData(id, stuff) {
   $.ajax({
@@ -54,7 +53,7 @@ function addStations() {
 	  marker.asd_id=id;
       stationData(id, marker);
 	  
-	  //oms.addMarker(marker);
+	  oms.addMarker(marker);
           
           stations.push(marker);
 		  
@@ -83,10 +82,10 @@ function newMarkerTsunami(position) {
 
 function newMarker(position) {
   return new google.maps.Marker({
-    position: position/*,
+    position: position,
     icon: {
     	url: "images/marker.png",
-    }, optimized: false*/,
+    }, optimized: false,
 	map: map
   });
 }var contentString = '<div id="content">'+
@@ -111,13 +110,6 @@ function newMarker(position) {
 	html  = '<div id="content">'+ html + '</div>';
 	infowindow.setContent(html);
     infowindow.open(map, marker);
-  }
-  
-  function Init_Clusterer()
-  {
-	  markerCluster = new MarkerClusterer(map, stations,{
-          averageCenter: true
-        });
   }
   
 function Init_SPIDER()
