@@ -118,7 +118,7 @@ function Init_SPIDER()
   
 	  oms.addListener('click', function(marker) {
         //infowindow.setContent(marker.desc);
-		infowindow.setContent(marker.exml);
+		infowindow.setContent(marker.asd_id);
 		console.log(marker.asd_log);
         infowindow.open(map, marker);
       });
