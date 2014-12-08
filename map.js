@@ -1,5 +1,7 @@
 var map;
 var chicago = new google.maps.LatLng(41.850033, -87.650052);
+var markerCluster;
+
 
 function createMap() {
 	var roadAtlasStyles = [{
@@ -43,14 +45,17 @@ function createMap() {
   map.mapTypes.set('Weather Map', usRoadMapType);
   map.setMapTypeId('Weather Map');
   
+  
+
 }
 
 function initialize() {
   createMap();
   createCurrents();
 
-  Init_SPIDER();
   addStations();
+  Init_Clusterer();
+  
   
   UpdateStations();
   buttonListeners();
