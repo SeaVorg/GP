@@ -9,7 +9,7 @@ function createMap() {
         visibility: 'off'
       }]
     },{
-      featureType: 'all',
+      featureType: 'landscape',
       elementType: 'geometry',
       stylers: [{ 
 		    hue: '#6ADAFF'
@@ -18,7 +18,7 @@ function createMap() {
       featureType: 'water',
       elementType: 'geometry',
       stylers: [{  
-        color: '#6ADAFF'
+        //color: '#6ADAFF'
 		}]
   }];
 
@@ -48,10 +48,10 @@ function initialize() {
   createMap();
   createCurrents();
 
-  //Init_SPIDER();
-  //addStations();
+  Init_SPIDER();
+  addStations();
   
-  //UpdateStations();
+  UpdateStations();
   buttonListeners();
 }
 
