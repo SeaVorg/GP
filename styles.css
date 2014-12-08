@@ -3,6 +3,7 @@
 	margin: 0px;
 	padding: 0px;
 }
+
 .layerToggle {
 	padding: 5px; 
 	z-index: 0; 
@@ -52,4 +53,25 @@
 	font-size: 20px; 
 	padding-left: 4px; 
 	padding-right: 4px; 
+}
+.legend{
+	padding-top: 0px;
+	padding-left:3px;
+	padding-right:3px;
+	padding-bottom:0px;
+	font-family: 'Century Gothic';
+	background-color: white;
+	z-index: 0;
+	position: absolute;
+	right:10px;
+	bottom:5%;
+	width:200px;
+	opacity: 0.4;
+}
+.legend:hover{
+opacity:1;
+-webkit-transition: opacity 0.4s;
+  -moz-transition: opacity 0.4s;
+  -o-transition: opacity 0.4s;
+  transition: opacity 0.4s;
 }

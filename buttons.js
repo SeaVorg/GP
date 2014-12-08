@@ -29,4 +29,5 @@ function buttonListeners() {
         this.setVisible(displayCurrents);
       });
   });
+
 }
