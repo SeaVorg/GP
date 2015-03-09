@@ -23,7 +23,7 @@ About us
 
 | venom1724 | LazyMomo |
 |--- |--- 
-| ![venom1724](https://venom1724.files.wordpress.com/2014/10/cropped-vxz22-a1.jpg) | ![LazyMomo](https://scontent-b-fra.xx.fbcdn.net/hphotos-xpf1/v/t1.0-9/231030_147479521988782_8104189_n.jpg?oh=06a1d66784a8f82be4c95b65e87cc0ec&oe=5502B492) |
+| ![venom1724]() | ![LazyMomo]() |
 
 Although we are still in highschool, we have experience in programming and developing in many languages and platforms.
 This is our first time at event like this, but we are ready and hopefully we can participate.
